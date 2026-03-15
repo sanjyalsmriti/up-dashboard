@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loadPostsByUserId } from "@/store/postsSlice";
 import { getLocalPosts } from "@/lib/localPosts";
+import AddPostForm from "@/components/AddPostForm";
 import PostList from "@/components/PostList";
 import type { Post } from "@/types";
 
@@ -59,6 +60,14 @@ export default function UserPostsPage() {
         <h1 className="text-2xl font-bold text-zinc-900 mb-6">
           Posts for User #{userId}
         </h1>
+
+        <AddPostForm
+          userId={userId}
+          onAdded={() => {
+            loadLocalPosts();
+            setCurrentPage(1);
+          }}
+        />
 
         {postsLoading && (
           <p className="text-zinc-600 mb-4">Loading posts...</p>
